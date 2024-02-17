@@ -9,7 +9,18 @@ function App() {
   return (
     <ChakraProvider>
       <Provider store={store}>
-        <Box margin={0} p={0} className="App">
+        <Box
+          bg={"#121212"}
+          backgroundImage={
+            "https://zamanilka.ru/wp-content/uploads/2022/04/rik-i-morti-110422-3.jpg"
+          }
+          backgroundRepeat={"no-repeat"}
+          backgroundAttachment={"fixed"}
+          backgroundPosition={"center"}
+          margin={0}
+          p={0}
+          className="App"
+        >
           <Header />
           <Characters></Characters>
         </Box>
