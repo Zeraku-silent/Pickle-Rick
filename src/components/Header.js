@@ -3,6 +3,10 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 export const Header = () => {
   return (
     <Flex
+      position={"fixed"}
+      top={0}
+      zIndex={"2"}
+      w={"100%"}
       bg="#121212"
       h={150}
       justifyContent={"space-between"}
