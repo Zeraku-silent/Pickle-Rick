@@ -10,13 +10,13 @@ function App() {
     <ChakraProvider>
       <Provider store={store}>
         <Box
-          bg={"#222"}
+          bg={"#1a1a1a"}
           backgroundImage={
             "https://zamanilka.ru/wp-content/uploads/2022/04/rik-i-morti-110422-3.jpg"
           }
           backgroundRepeat={"no-repeat"}
           backgroundAttachment={"fixed"}
-          backgroundPosition={"center"}
+          backgroundPosition={"right"}
           margin={0}
           p={0}
           className="App"

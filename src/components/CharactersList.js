@@ -26,7 +26,11 @@ export const Characters = () => {
       {heroes.map((character) => (
         <Card
           _hover={{
-            background: "gray.200",
+            background: "linear-gradient(290deg, #44c123, #44c123, #000)",
+            background:
+              "radial-gradient(ellipse farthest-corner, #44c123 40%, #000 90%)",
+            color: "white",
+            fontSize: "1.5rem",
           }}
           variant={"elevated"}
           p={3}
@@ -37,6 +41,7 @@ export const Characters = () => {
           width="auto"
           h="auto"
           key={character.id}
+          boxShadow={"20px 5px 30px #44c123"}
         >
           <CardBody>
             <Image src={character.image} borderRadius={25} />
