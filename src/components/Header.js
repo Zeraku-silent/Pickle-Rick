@@ -1,16 +1,20 @@
-import { Text, Flex } from "@chakra-ui/react";
+import { Flex, Image, Img } from "@chakra-ui/react";
 
 export const Header = () => {
   return (
     <Flex
-      bg="indigo"
-      h={100}
+      bg="#121212"
+      h={150}
       justifyContent={"center"}
       flexDirection={"column"}
+      bgImage={
+        "https://logos-world.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
+      }
+      backgroundSize={"15%"}
+      backgroundPosition={"center"}
+      backgroundRepeat={"no-repeat"}
     >
-      <Text color={"#00C0A3"} fontSize={"2.5rem"}>
-        Rick and Morty
-      </Text>
+      {/* <Img height={150} width={90} src="src/components/pickle.png"></Img> */}
     </Flex>
   );
 };

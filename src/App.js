@@ -10,7 +10,7 @@ function App() {
     <ChakraProvider>
       <Provider store={store}>
         <Box
-          bg={"#121212"}
+          bg={"#222"}
           backgroundImage={
             "https://zamanilka.ru/wp-content/uploads/2022/04/rik-i-morti-110422-3.jpg"
           }
@@ -22,7 +22,7 @@ function App() {
           className="App"
         >
           <Header />
-          <Characters></Characters>
+          <Characters />
         </Box>
       </Provider>
     </ChakraProvider>
