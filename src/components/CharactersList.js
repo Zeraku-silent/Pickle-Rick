@@ -1,7 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { loadCharacters } from "../store/charactersReducer";
+import {
+  loadCharacters,
+  // perPage,
+  setCurrentPage,
+  // totalCount,
+  totalPages,
+} from "../store/charactersReducer";
 import {
   Text,
   Image,
@@ -10,16 +16,30 @@ import {
   Flex,
   Stack,
   Heading,
+  Button,
+  Container,
 } from "@chakra-ui/react";
 
 export const Characters = () => {
   const dispatch = useDispatch();
   const heroes = useSelector((state) => state.characters.characters);
+  const currentPage = useSelector((state) => state.characters.currentPage);
+  const pages = [];
+  // const onOnePage = useSelector(perPage);
+  // const totalCharacters = useSelector(totalCount);
+  const pagesTotal = useSelector(totalPages);
+
+  for (let i = 1; i <= pagesTotal; i++) {
+    pages.push(i);
+  }
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character").then((response) =>
-      response.json().then((characters) => dispatch(loadCharacters(characters)))
+    fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}`).then(
+      (response) =>
+        response
+          .json()
+          .then((characters) => dispatch(loadCharacters(characters)))
     );
-  }, []);
+  }, [currentPage]);
 
   return (
     <Flex pt={5} flexDirection={"column"} alignItems={"center"}>
@@ -59,6 +79,21 @@ export const Characters = () => {
           </CardBody>
         </Card>
       ))}
+      <Container mt={20} mb={100}>
+        {pages.map((page) => (
+          <Button
+            key={page}
+            value={page}
+            m={2}
+            colorScheme="green"
+            onClick={() => {
+              dispatch(setCurrentPage(page));
+            }}
+          >
+            {page}
+          </Button>
+        ))}
+      </Container>
     </Flex>
   );
 };
