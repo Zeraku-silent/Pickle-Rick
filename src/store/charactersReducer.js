@@ -25,7 +25,8 @@ const charactersReducer = createSlice({
 
 export default charactersReducer.reducer;
 export const { loadCharacters, setCurrentPage } = charactersReducer.actions;
-export const RaMChars = (state) => state.characters.characters;
+export const characters = (state) => state.characters.characters;
 export const perPage = (state) => state.characters.perPage;
 export const totalCount = (state) => state.characters.totalCount;
 export const totalPages = (state) => state.characters.totalPages;
+export const currentPage = (state) => state.characters.currentPage;
