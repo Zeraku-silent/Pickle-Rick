@@ -19,6 +19,7 @@ function App() {
           backgroundPosition={"right"}
           margin={0}
           p={0}
+          pb={50}
           className="App"
         >
           <Header />
