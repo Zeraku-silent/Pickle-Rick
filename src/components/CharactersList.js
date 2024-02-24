@@ -67,7 +67,6 @@ export const Characters = () => {
       {heroes.map((character) => (
         <Character key={character.id} character={character} />
       ))}
-      {/* <Pagination /> */}
     </Flex>
   );
 };
