@@ -28,6 +28,7 @@ export const Character = ({ character }) => {
             character
           )} 40%, #000 90%)`,
         ],
+        shadow: `5px 2px 30px ${isAlive(character)}`,
         color: "white",
       }}
       variant={"elevated"}
@@ -41,7 +42,6 @@ export const Character = ({ character }) => {
       ]}
       width="auto"
       h="auto"
-      boxShadow={`5px 2px 30px ${isAlive(character)}`}
     >
       <CardBody>
         <Image src={character.image} borderRadius={25} />
