@@ -5,7 +5,7 @@ const charactersReducer = createSlice({
   initialState: {
     characters: [],
     perPage: 1,
-    totalCount: 1,
+    totalCount: 0,
     totalPages: 1,
   },
   reducers: {
@@ -14,7 +14,6 @@ const charactersReducer = createSlice({
       state.perPage = action.payload.results.length;
       state.totalCount = action.payload.info.count;
       state.totalPages = action.payload.info.pages;
-      // console.log(state.totalPages);
     },
 
     setCurrentPage(state, action) {

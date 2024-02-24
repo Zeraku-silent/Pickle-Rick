@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Character } from "./Character";
 
 import {
@@ -16,6 +16,19 @@ export const Characters = () => {
 
   const [fetching, setFetching] = useState(true);
   const [pageCurrent, setPageCurrent] = useState(1);
+  const handleScroll = useCallback(
+    (e) => {
+      if (
+        e.target.documentElement.scrollHeight -
+          (window.innerHeight + e.target.documentElement.scrollTop) <
+          100 &&
+        heroes.length < totalCount
+      ) {
+        setFetching(true);
+      }
+    },
+    [heroes.length, totalCount]
+  );
 
   useEffect(() => {
     if (fetching) {
@@ -26,33 +39,31 @@ export const Characters = () => {
           .json()
           .then((characters) => {
             dispatch(loadCharacters(characters));
-            setPageCurrent(pageCurrent + 1);
+            setPageCurrent((prev) => prev + 1);
           })
 
           .finally(() => setFetching(false))
       );
     }
-  }, [fetching, pageCurrent, dispatch]);
+  }, [fetching, dispatch, pageCurrent]);
 
   useEffect(() => {
     document.addEventListener("scroll", handleScroll);
     return () => {
       document.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-  const handleScroll = (e) => {
-    if (
-      e.target.documentElement.scrollHeight -
-        (window.innerHeight + e.target.documentElement.scrollTop) <
-        100 &&
-      heroes.length < totalCount
-    ) {
-      setFetching(true);
-    }
-  };
+  }, [handleScroll]);
 
   return (
-    <Flex pt={5} flexDirection={"column"} alignItems={"center"}>
+    <Flex
+      mx={"auto"}
+      width={"50%"}
+      pt={5}
+      wrap={"wrap"}
+      justify={"space-around"}
+      gap={2}
+      alignItems={"center"}
+    >
       {heroes.map((character) => (
         <Character key={character.id} character={character} />
       ))}
