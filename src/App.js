@@ -1,33 +1,31 @@
 import "./App.css";
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { Header } from "./components/Header";
-import { Characters } from "./components/CharactersList";
-import { Provider } from "react-redux";
-import { store } from "./store";
+import { CharactersList } from "./pages/Main/CharactersList";
+import { CharacterPage } from "./pages/CharacterPage/CharacterPage";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+export const App = () => {
   return (
-    <ChakraProvider>
-      <Provider store={store}>
-        <Box
-          bg={"#1a1a1a"}
-          backgroundImage={
-            "https://zamanilka.ru/wp-content/uploads/2022/04/rik-i-morti-110422-3.jpg"
-          }
-          backgroundRepeat={"no-repeat"}
-          backgroundAttachment={"fixed"}
-          backgroundPosition={"right"}
-          margin={0}
-          p={0}
-          pb={50}
-          className="App"
-        >
-          <Header />
-          <Characters />
-        </Box>
-      </Provider>
-    </ChakraProvider>
+    <Box
+      bg={"#1a1a1a"}
+      backgroundImage={
+        "https://zamanilka.ru/wp-content/uploads/2022/04/rik-i-morti-110422-3.jpg"
+      }
+      backgroundRepeat={"no-repeat"}
+      backgroundAttachment={"fixed"}
+      backgroundPosition={"right"}
+      margin={0}
+      p={0}
+      pb={50}
+      className="App"
+    >
+      <Header />
+      {/* <CharactersList /> */}
+      <Routes>
+        <Route path="/" element={<CharactersList />} />
+        <Route path="/character" element={<CharacterPage />} />
+      </Routes>
+    </Box>
   );
-}
-
-export default App;
+};

@@ -1,4 +1,5 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -29,6 +30,11 @@ export const Header = () => {
           alt="Пидор"
         ></Image>
       </Box>
+
+      <Link to="/">
+        <Button>Все персонажи</Button>
+      </Link>
+
       <Box alignSelf={"center"}>
         <Image
           height={125}

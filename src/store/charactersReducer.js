@@ -11,10 +11,13 @@ const charactersReducer = createSlice({
       state.characters = [...state.characters, ...action.payload.results];
       state.totalCount = action.payload.info.count;
     },
+    clearStore(state) {
+      state.characters = [];
+    },
   },
 });
 
 export default charactersReducer.reducer;
-export const { loadCharacters } = charactersReducer.actions;
+export const { loadCharacters, clearStore } = charactersReducer.actions;
 export const characters = (state) => state.characters.characters;
 export const countAllCharacters = (state) => state.characters.totalCount;

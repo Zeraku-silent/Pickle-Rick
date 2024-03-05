@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
-import { Character } from "./Character";
+
+import { CharacterCard } from "./CharacterCard";
 
 import {
   characters,
   countAllCharacters,
   loadCharacters,
-} from "../store/charactersReducer";
+} from "../../store/charactersReducer";
+
 import { Flex } from "@chakra-ui/react";
 
-export const Characters = () => {
+export const CharactersList = () => {
   const dispatch = useDispatch();
   const heroes = useSelector(characters);
   const totalCount = useSelector(countAllCharacters);
@@ -38,6 +40,7 @@ export const Characters = () => {
         response
           .json()
           .then((characters) => {
+            console.log(characters);
             dispatch(loadCharacters(characters));
             setPageCurrent((prev) => prev + 1);
           })
@@ -65,7 +68,7 @@ export const Characters = () => {
       alignItems={"center"}
     >
       {heroes.map((character) => (
-        <Character key={character.id} character={character} />
+        <CharacterCard key={character.id} character={character} />
       ))}
     </Flex>
   );
