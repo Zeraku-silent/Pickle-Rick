@@ -12,7 +12,12 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearStore } from "../../store/charactersReducer";
 
+import { useParams } from "react-router-dom";
+
 export const CharacterCard = ({ character }) => {
+  const { id } = useParams();
+  console.log(id);
+
   const dispatch = useDispatch();
 
   const clear = () => dispatch(clearStore());

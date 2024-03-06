@@ -21,7 +21,6 @@ export const App = () => {
       className="App"
     >
       <Header />
-      {/* <CharactersList /> */}
       <Routes>
         <Route path="/" element={<CharactersList />} />
         <Route path="/character" element={<CharacterPage />} />
