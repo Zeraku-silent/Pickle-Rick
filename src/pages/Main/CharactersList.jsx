@@ -6,7 +6,9 @@ import { CharacterCard } from "./CharacterCard";
 import {
   characters,
   countAllCharacters,
+  fetchToggle,
   loadCharacters,
+  loading,
 } from "../../store/charactersReducer";
 
 import { Flex } from "@chakra-ui/react";
@@ -15,9 +17,10 @@ export const CharactersList = () => {
   const dispatch = useDispatch();
   const heroes = useSelector(characters);
   const totalCount = useSelector(countAllCharacters);
+  const fetching = useSelector(loading);
 
-  const [fetching, setFetching] = useState(true);
   const [pageCurrent, setPageCurrent] = useState(1);
+
   const handleScroll = useCallback(
     (e) => {
       if (
@@ -26,10 +29,10 @@ export const CharactersList = () => {
           100 &&
         heroes.length < totalCount
       ) {
-        setFetching(true);
+        dispatch(fetchToggle(true));
       }
     },
-    [heroes.length, totalCount]
+    [heroes.length, totalCount, dispatch]
   );
 
   useEffect(() => {
@@ -40,12 +43,11 @@ export const CharactersList = () => {
         response
           .json()
           .then((characters) => {
-            console.log(characters);
             dispatch(loadCharacters(characters));
             setPageCurrent((prev) => prev + 1);
           })
 
-          .finally(() => setFetching(false))
+          .finally(() => dispatch(fetchToggle(false)))
       );
     }
   }, [fetching, dispatch, pageCurrent]);

@@ -5,6 +5,7 @@ const charactersReducer = createSlice({
   initialState: {
     characters: [],
     totalCount: 0,
+    loading: true,
   },
   reducers: {
     loadCharacters(state, action) {
@@ -14,10 +15,15 @@ const charactersReducer = createSlice({
     clearStore(state) {
       state.characters = [];
     },
+    fetchToggle(state, action) {
+      state.loading = action.payload;
+    },
   },
 });
 
 export default charactersReducer.reducer;
-export const { loadCharacters, clearStore } = charactersReducer.actions;
+export const { loadCharacters, clearStore, fetchToggle } =
+  charactersReducer.actions;
 export const characters = (state) => state.characters.characters;
 export const countAllCharacters = (state) => state.characters.totalCount;
+export const loading = (state) => state.characters.loading;

@@ -7,20 +7,11 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { clearStore } from "../../store/charactersReducer";
-
-import { useParams } from "react-router-dom";
 
 export const CharacterCard = ({ character }) => {
-  const { id } = useParams();
-  console.log(id);
-
-  const dispatch = useDispatch();
-
-  const clear = () => dispatch(clearStore());
+  const id = `/character/${character.name}`;
 
   const isAlive = (character) => {
     let st;
@@ -74,8 +65,8 @@ export const CharacterCard = ({ character }) => {
           <Text>Species: {character.species}</Text>
           <Text>Status: {character.status}</Text>
 
-          <Link to="/character">
-            <Button onClick={clear}>Подробнее...</Button>
+          <Link to={id}>
+            <Button>Подробнее...</Button>
           </Link>
         </Stack>
       </CardBody>
