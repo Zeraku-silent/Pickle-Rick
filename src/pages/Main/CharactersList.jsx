@@ -12,6 +12,7 @@ import {
 } from "../../store/charactersReducer";
 
 import { Flex } from "@chakra-ui/react";
+import axios from "axios";
 
 export const CharactersList = () => {
   const dispatch = useDispatch();
@@ -37,18 +38,15 @@ export const CharactersList = () => {
 
   useEffect(() => {
     if (fetching) {
-      fetch(
-        `https://rickandmortyapi.com/api/character?page=${pageCurrent}`
-      ).then((response) =>
-        response
-          .json()
-          .then((characters) => {
-            dispatch(loadCharacters(characters));
-            setPageCurrent((prev) => prev + 1);
-          })
+      axios
+        .get(`https://rickandmortyapi.com/api/character?page=${pageCurrent}`)
+        .then((response) => {
+          console.log(response.data);
+          dispatch(loadCharacters(response.data));
+          setPageCurrent((prev) => prev + 1);
+        })
 
-          .finally(() => dispatch(fetchToggle(false)))
-      );
+        .finally(() => dispatch(fetchToggle(false)));
     }
   }, [fetching, dispatch, pageCurrent]);
 

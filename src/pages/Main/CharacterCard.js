@@ -7,11 +7,20 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
+import { clearStore, fetchToggle } from "../../store/charactersReducer";
 
 export const CharacterCard = ({ character }) => {
-  const id = `/character/${character.name}`;
+  const dispatch = useDispatch();
+
+  const handleRemove = () => {
+    dispatch(clearStore());
+    dispatch(fetchToggle(true));
+  };
+
+  const id = `/character/${character.id}`;
 
   const isAlive = (character) => {
     let st;
@@ -29,7 +38,7 @@ export const CharacterCard = ({ character }) => {
 
   return (
     <Card
-      maxW={364}
+      maxW={330}
       marginTop={40}
       _hover={{
         background: [
@@ -66,7 +75,7 @@ export const CharacterCard = ({ character }) => {
           <Text>Status: {character.status}</Text>
 
           <Link to={id}>
-            <Button>Подробнее...</Button>
+            <Button onClick={handleRemove}>Подробнее...</Button>
           </Link>
         </Stack>
       </CardBody>
