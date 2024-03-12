@@ -6,6 +6,7 @@ import {
   Heading,
   Text,
   Divider,
+  Button,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -15,6 +16,7 @@ import axios from "axios";
 export const CharacterPage = () => {
   const { id } = useParams();
   const [character, setCharacter] = useState(null);
+  const [episodes, setEpisodes] = useState(null);
 
   useEffect(() => {
     axios
@@ -22,9 +24,11 @@ export const CharacterPage = () => {
 
       .then((response) => {
         setCharacter(response.data);
+        setEpisodes(response.data.episode);
       });
   }, [id]);
 
+  console.log(episodes);
   console.log(character);
 
   return (
@@ -34,32 +38,25 @@ export const CharacterPage = () => {
           borderRadius={40}
           templateAreas={`'avatar info  info info'
         'episode episode  episode episode'`}
-          justifyContent={"center"}
           bgGradient={[
             "linear-gradient(290deg, gray.500, gray.500, #000)",
             "radial-gradient(ellipse farthest-corner, gray.500 40%, #000 90%)",
           ]}
           h="100vh"
-          templateRows="auto 1fr"
+          templateRows="35% auto"
           templateColumns="1fr 1fr 1fr 1fr"
           gap={5}
           m={0}
           mt={160}
           p={7}
         >
-          <GridItem
+          <Image
+            alignSelf={"center"}
+            border={"solid 3px  "}
             borderRadius={30}
-            area={"avatar"}
-            bg={"gray.700"}
-            shadow="6px -6px 15px black"
-          >
-            <Image
-              border={"solid 3px  "}
-              borderRadius={30}
-              w={"100%"}
-              src={character.image}
-            />
-          </GridItem>
+            w={"auto"}
+            src={character.image}
+          />
           <GridItem
             pt={5}
             borderRadius={30}
@@ -136,12 +133,17 @@ export const CharacterPage = () => {
             </Text>
           </GridItem>
           <GridItem
+            p={5}
             borderRadius={30}
             area={"episode"}
             bg={"gray.700"}
             shadow="6px -6px 15px black"
           >
-            sdf
+            {episodes
+              ? episodes.map((ep) => {
+                  return <Button m={5}>{ep}</Button>;
+                })
+              : "Loading..."}
           </GridItem>
         </Grid>
       ) : (
