@@ -38,7 +38,7 @@ export const CharacterCard = ({ character }) => {
 
   return (
     <Card
-      maxW={330}
+      maxW={300}
       marginTop={40}
       _hover={{
         background: [

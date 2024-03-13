@@ -7,6 +7,12 @@ import {
   Text,
   Divider,
   Button,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+  Flex,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -16,7 +22,8 @@ import axios from "axios";
 export const CharacterPage = () => {
   const { id } = useParams();
   const [character, setCharacter] = useState(null);
-  const [episodes, setEpisodes] = useState(null);
+  const [episodes, setEpisodes] = useState([]);
+  // const [episodeList, setEpisodeList] = useState([]);
 
   useEffect(() => {
     axios
@@ -28,13 +35,25 @@ export const CharacterPage = () => {
       });
   }, [id]);
 
-  console.log(episodes);
-  console.log(character);
+  // useEffect(() => {
+  //   const jopa = [];
+  //   for (let i = 0; i <= episodes.length; i++) {
+  //     axios.get(episodes[i]).then((data) => {
+  //       jopa.push(data.data.name);
+  //     });
+  //     setEpisodeList((prev) => [...prev, jopa]);
+  //   }
+  //   console.log(episodeList);
+  // }, [episodes, episodeList]);
+
+  // console.log(episodes);
+  // console.log(character);
 
   return (
-    <Box mr={"auto"} ml={"auto"} p={5} w={"60%"}>
+    <Box w={"70%"} ml={"auto"} mr={"auto"}>
       {character ? (
         <Grid
+          height={"auto"}
           borderRadius={40}
           templateAreas={`'avatar info  info info'
         'episode episode  episode episode'`}
@@ -42,8 +61,8 @@ export const CharacterPage = () => {
             "linear-gradient(290deg, gray.500, gray.500, #000)",
             "radial-gradient(ellipse farthest-corner, gray.500 40%, #000 90%)",
           ]}
-          h="100vh"
-          templateRows="35% auto"
+          h="auto"
+          templateRows="auto auto"
           templateColumns="1fr 1fr 1fr 1fr"
           gap={5}
           m={0}
@@ -139,11 +158,31 @@ export const CharacterPage = () => {
             bg={"gray.700"}
             shadow="6px -6px 15px black"
           >
-            {episodes
-              ? episodes.map((ep) => {
-                  return <Button m={5}>{ep}</Button>;
-                })
-              : "Loading..."}
+            {episodes ? (
+              <Accordion allowToggle>
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton bgColor={"gray.600"} borderRadius={"5"}>
+                      <Box as="span" flex="1" textAlign="left">
+                        <Heading fontSize={"medium"}>
+                          Появляется в эпизодах:
+                        </Heading>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    <Flex wrap={"wrap"}>
+                      {episodes.map((ep) => {
+                        return <Button m={3}>{ep}</Button>;
+                      })}
+                    </Flex>
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+            ) : (
+              "Loading..."
+            )}
           </GridItem>
         </Grid>
       ) : (

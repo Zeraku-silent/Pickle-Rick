@@ -17,7 +17,7 @@ export const App = () => {
       backgroundPosition={"right"}
       margin={0}
       p={0}
-      pb={50}
+      pb={340}
       className="App"
     >
       <Header />

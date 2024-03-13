@@ -41,7 +41,6 @@ export const CharactersList = () => {
       axios
         .get(`https://rickandmortyapi.com/api/character?page=${pageCurrent}`)
         .then((response) => {
-          console.log(response.data);
           dispatch(loadCharacters(response.data));
           setPageCurrent((prev) => prev + 1);
         })
@@ -60,7 +59,7 @@ export const CharactersList = () => {
   return (
     <Flex
       mx={"auto"}
-      width={"50%"}
+      width={"70%"}
       pt={5}
       wrap={"wrap"}
       justify={"space-around"}
