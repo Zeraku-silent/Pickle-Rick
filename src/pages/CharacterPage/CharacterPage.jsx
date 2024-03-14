@@ -16,14 +16,15 @@ import {
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import { nanoid } from "nanoid";
 
 export const CharacterPage = () => {
   const { id } = useParams();
   const [character, setCharacter] = useState(null);
   const [episodes, setEpisodes] = useState([]);
-  // const [episodeList, setEpisodeList] = useState([]);
+  const [episodeList, setEpisodeList] = useState([]);
 
   useEffect(() => {
     axios
@@ -35,19 +36,30 @@ export const CharacterPage = () => {
       });
   }, [id]);
 
-  // useEffect(() => {
-  //   const jopa = [];
-  //   for (let i = 0; i <= episodes.length; i++) {
-  //     axios.get(episodes[i]).then((data) => {
-  //       jopa.push(data.data.name);
-  //     });
-  //     setEpisodeList((prev) => [...prev, jopa]);
-  //   }
-  //   console.log(episodeList);
-  // }, [episodes, episodeList]);
+  const getEpisodeName = useCallback(async (arr) => {
+    const result = [];
 
-  // console.log(episodes);
-  // console.log(character);
+    for (const item of arr) {
+      result.push(
+        await fetch(item)
+          .then((data) => data.json())
+          .then((data) => {
+            const part = data.name;
+            return part;
+          })
+      );
+    }
+
+    if (result) {
+      setEpisodeList((prev) => [...prev, ...result]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (episodes) {
+      getEpisodeName(episodes);
+    }
+  }, [episodes, getEpisodeName]);
 
   return (
     <Box w={"70%"} ml={"auto"} mr={"auto"}>
@@ -158,7 +170,7 @@ export const CharacterPage = () => {
             bg={"gray.700"}
             shadow="6px -6px 15px black"
           >
-            {episodes ? (
+            {episodeList ? (
               <Accordion allowToggle>
                 <AccordionItem>
                   <h2>
@@ -173,8 +185,12 @@ export const CharacterPage = () => {
                   </h2>
                   <AccordionPanel pb={4}>
                     <Flex wrap={"wrap"}>
-                      {episodes.map((ep) => {
-                        return <Button m={3}>{ep}</Button>;
+                      {episodeList.map((ep) => {
+                        return (
+                          <Button key={nanoid()} m={3}>
+                            {ep}
+                          </Button>
+                        );
                       })}
                     </Flex>
                   </AccordionPanel>
