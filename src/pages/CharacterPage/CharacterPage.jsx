@@ -51,7 +51,7 @@ export const CharacterPage = () => {
     }
 
     if (result) {
-      setEpisodeList((prev) => [...prev, ...result]);
+      setEpisodeList(result);
     }
   }, []);
 
@@ -94,9 +94,10 @@ export const CharacterPage = () => {
             area={"info"}
             bg={"gray.700"}
             shadow="6px -6px 15px black"
+            w={"auto"}
           >
             <Heading size={"xl"}>{character.name}</Heading>
-            <Divider h={3} />
+            <Divider h={2} />
             <Text
               bg={"gray.600"}
               p={1}
@@ -174,11 +175,9 @@ export const CharacterPage = () => {
               <Accordion allowToggle>
                 <AccordionItem>
                   <h2>
-                    <AccordionButton bgColor={"gray.600"} borderRadius={"5"}>
+                    <AccordionButton bgColor={"gray.600"}>
                       <Box as="span" flex="1" textAlign="left">
-                        <Heading fontSize={"medium"}>
-                          Появляется в эпизодах:
-                        </Heading>
+                        <Heading>Появляется в эпизодах:</Heading>
                       </Box>
                       <AccordionIcon />
                     </AccordionButton>
