@@ -6,7 +6,6 @@ import {
   Heading,
   Text,
   Divider,
-  Button,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -16,15 +15,13 @@ import {
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { nanoid } from "nanoid";
+import { Episode } from "./Episode";
 
 export const CharacterPage = () => {
   const { id } = useParams();
   const [character, setCharacter] = useState(null);
-  const [episodes, setEpisodes] = useState([]);
-  const [episodeList, setEpisodeList] = useState([]);
 
   useEffect(() => {
     axios
@@ -32,34 +29,8 @@ export const CharacterPage = () => {
 
       .then((response) => {
         setCharacter(response.data);
-        setEpisodes(response.data.episode);
       });
   }, [id]);
-
-  const getEpisodeName = useCallback(async (arr) => {
-    const result = [];
-
-    for (const item of arr) {
-      result.push(
-        await fetch(item)
-          .then((data) => data.json())
-          .then((data) => {
-            const part = data.name;
-            return part;
-          })
-      );
-    }
-
-    if (result) {
-      setEpisodeList(result);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (episodes) {
-      getEpisodeName(episodes);
-    }
-  }, [episodes, getEpisodeName]);
 
   return (
     <Box w={"70%"} ml={"auto"} mr={"auto"}>
@@ -171,33 +142,25 @@ export const CharacterPage = () => {
             bg={"gray.700"}
             shadow="6px -6px 15px black"
           >
-            {episodeList ? (
-              <Accordion allowToggle>
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton bgColor={"gray.600"}>
-                      <Box as="span" flex="1" textAlign="left">
-                        <Heading>Появляется в эпизодах:</Heading>
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}>
-                    <Flex wrap={"wrap"}>
-                      {episodeList.map((ep) => {
-                        return (
-                          <Button key={nanoid()} m={3}>
-                            {ep}
-                          </Button>
-                        );
-                      })}
-                    </Flex>
-                  </AccordionPanel>
-                </AccordionItem>
-              </Accordion>
-            ) : (
-              "Loading..."
-            )}
+            <Accordion allowToggle>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton bgColor={"gray.600"}>
+                    <Box as="span" flex="1" textAlign="left">
+                      <Heading>Появляется в эпизодах:</Heading>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Flex wrap={"wrap"}>
+                    {character.episode.map((ep) => {
+                      return <Episode key={ep} url={ep} />;
+                    })}
+                  </Flex>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
           </GridItem>
         </Grid>
       ) : (
