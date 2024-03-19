@@ -5,6 +5,10 @@ import { useState } from "react";
 export const Episode = ({ url }) => {
   const [episode, setEpisode] = useState("");
 
-  axios.get(url).then((data) => setEpisode(data.data.name));
+  axios
+    .get(url)
+    .then((data) => setEpisode(data.data.name))
+    .catch((episode) => setEpisode("Эпизод не найден"));
+
   return <Button m={1}>{episode}</Button>;
 };

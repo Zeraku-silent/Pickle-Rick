@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 import { CharacterCard } from "./CharacterCard";
 
@@ -9,18 +9,23 @@ import {
   fetchToggle,
   loadCharacters,
   loading,
+  pageCurrent,
+  setCurrentPage,
+  stat,
 } from "../../store/charactersReducer";
 
 import { Flex } from "@chakra-ui/react";
 import axios from "axios";
+import { fetchCharacters } from "../../store/asyncActions";
 
 export const CharactersList = () => {
   const dispatch = useDispatch();
   const heroes = useSelector(characters);
   const totalCount = useSelector(countAllCharacters);
-  const fetching = useSelector(loading);
+  const status = useSelector(stat);
+  const currentPage = useSelector(pageCurrent);
 
-  const [pageCurrent, setPageCurrent] = useState(1);
+  // const [pageCurrent, setPageCurrent] = useState(1);
 
   const handleScroll = useCallback(
     (e) => {
@@ -30,24 +35,23 @@ export const CharactersList = () => {
           100 &&
         heroes.length < totalCount
       ) {
-        dispatch(fetchToggle(true));
+        dispatch(fetchToggle("loading"));
       }
     },
     [heroes.length, totalCount, dispatch]
   );
 
   useEffect(() => {
-    if (fetching) {
-      axios
-        .get(`https://rickandmortyapi.com/api/character?page=${pageCurrent}`)
-        .then((response) => {
-          dispatch(loadCharacters(response.data));
-          setPageCurrent((prev) => prev + 1);
-        })
-
-        .finally(() => dispatch(fetchToggle(false)));
+    if (status === null) {
+      const data = dispatch(fetchCharacters(currentPage));
+      console.log(data);
+      if (data) {
+        dispatch(loadCharacters(data));
+        dispatch(setCurrentPage());
+        dispatch(fetchToggle(null));
+      }
     }
-  }, [fetching, dispatch, pageCurrent]);
+  }, [status, dispatch, currentPage]);
 
   useEffect(() => {
     document.addEventListener("scroll", handleScroll);
