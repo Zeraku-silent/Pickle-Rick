@@ -7,25 +7,20 @@ import {
   characters,
   countAllCharacters,
   fetchToggle,
-  loadCharacters,
-  loading,
+  fetching,
   pageCurrent,
-  setCurrentPage,
-  stat,
 } from "../../store/charactersReducer";
 
 import { Flex } from "@chakra-ui/react";
-import axios from "axios";
 import { fetchCharacters } from "../../store/asyncActions";
 
 export const CharactersList = () => {
   const dispatch = useDispatch();
   const heroes = useSelector(characters);
   const totalCount = useSelector(countAllCharacters);
-  const status = useSelector(stat);
+  // const status = useSelector(stat);
   const currentPage = useSelector(pageCurrent);
-
-  // const [pageCurrent, setPageCurrent] = useState(1);
+  const loading = useSelector(fetching);
 
   const handleScroll = useCallback(
     (e) => {
@@ -35,23 +30,17 @@ export const CharactersList = () => {
           100 &&
         heroes.length < totalCount
       ) {
-        dispatch(fetchToggle("loading"));
+        dispatch(fetchToggle(true));
       }
     },
     [heroes.length, totalCount, dispatch]
   );
 
   useEffect(() => {
-    if (status === null) {
-      const data = dispatch(fetchCharacters(currentPage));
-      console.log(data);
-      if (data) {
-        dispatch(loadCharacters(data));
-        dispatch(setCurrentPage());
-        dispatch(fetchToggle(null));
-      }
+    if (loading) {
+      dispatch(fetchCharacters(currentPage));
     }
-  }, [status, dispatch, currentPage]);
+  }, [loading, currentPage, dispatch]);
 
   useEffect(() => {
     document.addEventListener("scroll", handleScroll);

@@ -9,6 +9,7 @@ const charactersReducer = createSlice({
     pageCurrent: 1,
     status: null,
     error: null,
+    loading: true,
   },
   reducers: {
     loadCharacters(state, action) {
@@ -21,19 +22,21 @@ const charactersReducer = createSlice({
     fetchToggle(state, action) {
       state.loading = action.payload;
     },
-    setCurrentPage(state) {
-      state.pageCurrent = state.pageCurrent + 1;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCharacters.pending, (state) => {
       state.status = "loading";
-      state.status = null;
     });
 
     builder.addCase(fetchCharacters.fulfilled, (state, action) => {
       state.status = "resolved";
+      // if (state.characters === []) {
+      //   state.pageCurrent = state.pageCurrent + 11;
+      // }
       state.characters = [...state.characters, ...action.payload.results];
+      state.totalCount = action.payload.info.count;
+
+      state.pageCurrent = state.pageCurrent + 1;
     });
     builder.addCase(fetchCharacters.rejected, (state) => {
       console.log(state.characters);
@@ -48,3 +51,4 @@ export const pageCurrent = (state) => state.characters.pageCurrent;
 export const characters = (state) => state.characters.characters;
 export const countAllCharacters = (state) => state.characters.totalCount;
 export const stat = (state) => state.characters.status;
+export const fetching = (state) => state.characters.loading;

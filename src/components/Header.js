@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export const Header = () => {

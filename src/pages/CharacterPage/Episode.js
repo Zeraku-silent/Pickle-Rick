@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 
@@ -8,7 +8,21 @@ export const Episode = ({ url }) => {
   axios
     .get(url)
     .then((data) => setEpisode(data.data.name))
-    .catch((episode) => setEpisode("Эпизод не найден"));
+    .catch((episode) => setEpisode(false));
 
-  return <Button m={1}>{episode}</Button>;
+  return (
+    <Box m={1}>
+      {episode ? (
+        <Button>{episode}</Button>
+      ) : (
+        <Spinner
+          thickness="6px"
+          speed="1.2s"
+          emptyColor="gray.200"
+          color="green.500"
+          size="xl"
+        />
+      )}
+    </Box>
+  );
 };
