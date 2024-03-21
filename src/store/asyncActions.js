@@ -14,3 +14,14 @@ export const fetchCharacters = createAsyncThunk(
     return characters;
   }
 );
+
+// export const fetchOneCharacter = createAsyncThunk(
+//   "character/fetchOneCharacter",
+//   async (payload) => {
+//     const response = await axios.get(
+//       `https://rickandmortyapi.com/api/character/${payload}`
+//     );
+//     const character = await response.data;
+//     return character;
+//   }
+// );

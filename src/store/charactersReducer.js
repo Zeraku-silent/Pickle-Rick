@@ -30,9 +30,7 @@ const charactersReducer = createSlice({
 
     builder.addCase(fetchCharacters.fulfilled, (state, action) => {
       state.status = "resolved";
-      // if (state.characters === []) {
-      //   state.pageCurrent = state.pageCurrent + 11;
-      // }
+
       state.characters = [...state.characters, ...action.payload.results];
       state.totalCount = action.payload.info.count;
 
