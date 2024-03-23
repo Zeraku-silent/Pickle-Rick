@@ -1,15 +1,16 @@
 import { Box, Button, Spinner } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Episode = ({ url }) => {
   const [episode, setEpisode] = useState("");
 
-  axios
-    .get(url)
-    .then((data) => setEpisode(data.data.name))
-    .catch((episode) => setEpisode(false));
-
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((data) => setEpisode(data.data.name))
+      .catch((episode) => setEpisode(false));
+  }, []);
   return (
     <Box m={1}>
       {episode ? (

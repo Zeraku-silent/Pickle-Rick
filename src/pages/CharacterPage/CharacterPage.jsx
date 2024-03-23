@@ -164,7 +164,7 @@ export const CharacterPage = () => {
           </GridItem>
         </Grid>
       ) : (
-        <div>'Loading'</div>
+        <div>Loading</div>
       )}
     </Box>
   );
