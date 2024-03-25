@@ -26,11 +26,9 @@ export const CharacterPage = () => {
     const character = useSelector(oneCharacter);
     const fetching = useSelector(status);
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(fetchOneCharacter(id));
     }, [id, dispatch]);
-    console.log(id);
 
     return (
         <Box w={'70%'} ml={'auto'} mr={'auto'}>

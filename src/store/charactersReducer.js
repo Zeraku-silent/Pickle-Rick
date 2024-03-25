@@ -12,10 +12,6 @@ const charactersReducer = createSlice({
         loading: true,
     },
     reducers: {
-        loadCharacters(state, action) {
-            state.characters = [...state.characters, ...action.payload.results];
-            state.totalCount = action.payload.info.count;
-        },
         clearStore(state) {
             state.characters = [];
         },

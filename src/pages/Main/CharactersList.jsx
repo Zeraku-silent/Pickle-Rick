@@ -18,7 +18,6 @@ export const CharactersList = () => {
     const dispatch = useDispatch();
     const heroes = useSelector(characters);
     const totalCount = useSelector(countAllCharacters);
-    // const status = useSelector(stat);
     const currentPage = useSelector(pageCurrent);
     const loading = useSelector(fetching);
 

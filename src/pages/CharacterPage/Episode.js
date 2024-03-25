@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { oneEpisode } from '../../store/oneEpisodeReducer';
 import { fetchOneEpisode } from '../../store/asyncActions/asyncOneEpisodeRequest';
+import { Link } from 'react-router-dom';
 
 export const Episode = ({ url }) => {
     const episode = useSelector((state) => oneEpisode(state, url));
@@ -11,10 +12,13 @@ export const Episode = ({ url }) => {
     useEffect(() => {
         dispatch(fetchOneEpisode(url));
     }, [dispatch, url]);
+
     return (
         <Box m={1}>
             {episode ? (
-                <Button>{episode.name}</Button>
+                <Link to={`/episode/${episode.id}`} state={episode}>
+                    <Button>{episode.name}</Button>
+                </Link>
             ) : (
                 <Spinner
                     thickness="6px"
