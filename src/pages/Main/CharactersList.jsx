@@ -50,12 +50,13 @@ export const CharactersList = () => {
 
     return (
         <Flex
+            mt={40}
             mx={'auto'}
             width={'70%'}
             pt={5}
             wrap={'wrap'}
             justify={'space-around'}
-            gap={2}
+            gap={10}
             alignItems={'center'}
         >
             {heroes.map((character) => (

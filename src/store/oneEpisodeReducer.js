@@ -23,7 +23,7 @@ const oneEpisodeReducer = createSlice({
             state.episode[action.payload.url] = action.payload;
         });
         builder.addCase(fetchCharatersInEpisode.fulfilled, (state, action) => {
-            state.characters = action.payload;
+            state.characters = [...state.characters, action.payload];
         });
     },
 });
