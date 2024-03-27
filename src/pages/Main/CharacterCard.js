@@ -6,12 +6,31 @@ import {
     Image,
     Text,
     Button,
+    Box,
+    IconButton,
 } from '@chakra-ui/react';
+import { useCallback, useEffect, useState } from 'react';
+
+import { FaStar } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import {
+    addCharacter,
+    liked,
+    removeCharacter,
+} from '../../store/likedCharactersReducer';
 
 export const CharacterCard = ({ character }) => {
     const id = `/character/${character.id}`;
+    const [like, setLike] = useState(false);
+
+    const likedCharacters = useSelector(liked);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setLike(likedCharacters.includes(character.id));
+    }, [character.id, character.name, likedCharacters]);
 
     const isAlive = (character) => {
         let st;
@@ -26,6 +45,23 @@ export const CharacterCard = ({ character }) => {
             return st;
         }
     };
+
+    const likeCard = useCallback(
+        (e) => {
+            setLike(true);
+            dispatch(addCharacter(character.id));
+        },
+
+        [character, dispatch],
+    );
+    const dislikeCard = useCallback(
+        (e) => {
+            setLike(false);
+            dispatch(removeCharacter(character.id));
+        },
+
+        [character, dispatch],
+    );
 
     return (
         <Card
@@ -62,15 +98,39 @@ export const CharacterCard = ({ character }) => {
                         textShadow="5px 4px black"
                         fontSize={'larger'}
                     >
-                        {character.name}
+                        <Text>{character.name}</Text>
                     </Heading>
                     <Text>Gender: {character.gender}</Text>
                     <Text>Species: {character.species}</Text>
                     <Text>Status: {character.status}</Text>
-
-                    <Link to={id}>
-                        <Button>Подробнее...</Button>
-                    </Link>
+                    <Box>
+                        <Link to={id}>
+                            <Button>Подробнее...</Button>
+                        </Link>
+                        {like ? (
+                            <IconButton
+                                onClick={dislikeCard}
+                                ml={5}
+                                isRound={true}
+                                variant="solid"
+                                colorScheme="gray"
+                                aria-label="Done"
+                                fontSize="20px"
+                                icon={<FaStar color="yellow" />}
+                            />
+                        ) : (
+                            <IconButton
+                                onClick={likeCard}
+                                ml={5}
+                                isRound={true}
+                                variant="solid"
+                                colorScheme="gray"
+                                aria-label="Done"
+                                fontSize="20px"
+                                icon={<FaStar color="gray" />}
+                            />
+                        )}
+                    </Box>
                 </Stack>
             </CardBody>
         </Card>

@@ -13,6 +13,7 @@ import {
 
 import { Flex } from '@chakra-ui/react';
 import { fetchCharacters } from '../../store/asyncActions/asyncCharactersRequest';
+import { liked, loadStorage } from '../../store/likedCharactersReducer';
 
 export const CharactersList = () => {
     const dispatch = useDispatch();
@@ -20,6 +21,19 @@ export const CharactersList = () => {
     const totalCount = useSelector(countAllCharacters);
     const currentPage = useSelector(pageCurrent);
     const loading = useSelector(fetching);
+    const likedCharacters = useSelector(liked);
+
+    useEffect(() => {
+        const likedStore = localStorage.getItem('liked') || '[]';
+        console.log(likedStore);
+        dispatch(loadStorage(JSON.parse(likedStore)));
+    }, [dispatch]);
+
+    useEffect(() => {
+        localStorage.setItem('liked', JSON.stringify(likedCharacters));
+        // localStorage.setItem('chakra-ui-color-mode', 'dark');
+    }, [likedCharacters]);
+    console.log(likedCharacters);
 
     const handleScroll = useCallback(
         (e) => {
