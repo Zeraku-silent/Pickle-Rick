@@ -25,7 +25,6 @@ export const CharactersList = () => {
 
     useEffect(() => {
         const likedStore = localStorage.getItem('liked') || '[]';
-        console.log(likedStore);
         dispatch(loadStorage(JSON.parse(likedStore)));
     }, [dispatch]);
 
@@ -33,7 +32,6 @@ export const CharactersList = () => {
         localStorage.setItem('liked', JSON.stringify(likedCharacters));
         // localStorage.setItem('chakra-ui-color-mode', 'dark');
     }, [likedCharacters]);
-    console.log(likedCharacters);
 
     const handleScroll = useCallback(
         (e) => {

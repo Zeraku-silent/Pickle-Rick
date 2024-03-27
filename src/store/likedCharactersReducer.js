@@ -1,27 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchFavoriteCharacters } from './asyncActions/asyncFavoriteCharactersRequest';
 
 const likedCharacterReducer = createSlice({
     name: 'likedCharacters',
     initialState: {
-        characters: [],
+        charactersId: [],
+        favoriteCharacters: [],
     },
     reducers: {
         addCharacter(state, action) {
-            // const like = { id: action.payload.id, name: action.payload.name };
-            state.characters = [...state.characters, action.payload];
+            console.log(action.payload);
+            state.charactersId = [...state.charactersId, action.payload];
         },
         removeCharacter(state, action) {
-            state.characters = state.characters.filter(
+            state.charactersId = state.charactersId.filter(
                 (character) => character !== action.payload,
             );
         },
         loadStorage(state, action) {
-            state.characters = action.payload;
+            state.charactersId = action.payload;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchFavoriteCharacters.fulfilled, (state, action) => {
+            state.favoriteCharacters = action.payload;
+        });
     },
 });
 
 export default likedCharacterReducer.reducer;
 export const { addCharacter, removeCharacter, loadStorage } =
     likedCharacterReducer.actions;
-export const liked = (state) => state.liked.characters;
+export const liked = (state) => state.liked.charactersId;
+export const favoriteCharacters = (state) => state.liked.favoriteCharacters;

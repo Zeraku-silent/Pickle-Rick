@@ -4,14 +4,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { oneEpisode } from '../../store/oneEpisodeReducer';
 import { fetchOneEpisode } from '../../store/asyncActions/asyncOneEpisodeRequest';
 import { Link } from 'react-router-dom';
+import { liked, loadStorage } from '../../store/likedCharactersReducer';
 
 export const Episode = ({ url }) => {
     const episode = useSelector((state) => oneEpisode(state, url));
     const dispatch = useDispatch();
+    const likedCharacters = useSelector(liked);
 
     useEffect(() => {
         dispatch(fetchOneEpisode(url));
     }, [dispatch, url]);
+
+    useEffect(() => {
+        const likedStore = localStorage.getItem('liked') || '[]';
+        dispatch(loadStorage(JSON.parse(likedStore)));
+    }, [dispatch]);
+
+    useEffect(() => {
+        localStorage.setItem('liked', JSON.stringify(likedCharacters));
+        // localStorage.setItem('chakra-ui-color-mode', 'dark');
+    }, [likedCharacters]);
 
     return (
         <Box m={1}>

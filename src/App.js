@@ -5,6 +5,7 @@ import { CharactersList } from './pages/Main/CharactersList';
 import { CharacterPage } from './pages/CharacterPage/CharacterPage';
 import { Routes, Route } from 'react-router-dom';
 import { EpisodePage } from './pages/EpisodePage/EpisodePage';
+import { FavoritList } from './pages/FavoritesPage';
 
 export const App = () => {
     return (
@@ -26,6 +27,7 @@ export const App = () => {
                 <Route path="/" element={<CharactersList />} />
                 <Route path="/character/:id" element={<CharacterPage />} />
                 <Route path="/episode/:id" element={<EpisodePage />} />
+                <Route path="/favorites" element={<FavoritList />} />
             </Routes>
         </Box>
     );
