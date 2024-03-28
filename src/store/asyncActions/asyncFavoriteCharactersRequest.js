@@ -4,7 +4,6 @@ import axios from 'axios';
 export const fetchFavoriteCharacters = createAsyncThunk(
     'likedCharacters/fetchFavoriteCharacters',
     async (payload) => {
-        console.log(payload);
         const response = await axios.get(
             `https://rickandmortyapi.com/api/character/${payload}`,
         );

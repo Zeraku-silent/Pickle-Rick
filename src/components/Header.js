@@ -1,7 +1,11 @@
-import { Box, Button, Flex, Image } from '@chakra-ui/react';
+import { Box, Button, Flex, IconButton, Image } from '@chakra-ui/react';
+import { FaStar } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { liked } from '../store/likedCharactersReducer';
 
 export const Header = () => {
+    const likedCharacters = useSelector(liked);
     return (
         <Flex
             position={'fixed'}
@@ -11,6 +15,7 @@ export const Header = () => {
             bg="#121212"
             h={150}
             justifyContent={'space-between'}
+            alignItems={'center'}
             flexDirection={'row'}
             pl={5}
             pr={5}
@@ -21,19 +26,23 @@ export const Header = () => {
                     height={140}
                     width={140}
                     src="https://www.freepnglogos.com/uploads/rick-and-morty-png/rick-and-morty-rick-flying-transparent-png-stickpng-15.png"
-                    alt="Пидор"
+                    alt="Rick"
                 ></Image>
             </Box>
 
             <Link to="/">
-                <Image
-                    w="300px"
-                    h={'auto'}
-                    src="https://logos-world.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
-                ></Image>
+                <Button>На главную</Button>
             </Link>
-
-            <Link to="/favorites"> член</Link>
+            <Image
+                w="300px"
+                h={'auto'}
+                src="https://logos-world.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
+            ></Image>
+            <Link to="/favorites">
+                <Button leftIcon={<FaStar color="yellow" />}>
+                    Избранные ({likedCharacters.length})
+                </Button>
+            </Link>
 
             <Box alignSelf={'center'} w={120}>
                 <Image

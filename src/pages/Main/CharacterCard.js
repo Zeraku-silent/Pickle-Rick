@@ -32,6 +32,11 @@ export const CharacterCard = ({ character }) => {
         setLike(likedCharacters.includes(character.id));
     }, [character.id, character.name, likedCharacters]);
 
+    useEffect(() => {
+        localStorage.setItem('liked', JSON.stringify(likedCharacters));
+        // localStorage.setItem('chakra-ui-color-mode', 'dark');
+    }, [likedCharacters]);
+
     const isAlive = (character) => {
         let st;
         if (character.status === 'Alive') {

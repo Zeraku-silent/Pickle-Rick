@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -80,7 +80,7 @@ export const EpisodePage = () => {
                             ></CharacterCard>
                         ))
                     ) : (
-                        <Box>asd</Box>
+                        <Spinner />
                     )}
                 </Flex>
             </Box>

@@ -17,6 +17,9 @@ const likedCharacterReducer = createSlice({
                 (character) => character !== action.payload,
             );
         },
+        removeFavorites(state) {
+            state.favoriteCharacters = [];
+        },
         loadStorage(state, action) {
             state.charactersId = action.payload;
         },
@@ -29,7 +32,7 @@ const likedCharacterReducer = createSlice({
 });
 
 export default likedCharacterReducer.reducer;
-export const { addCharacter, removeCharacter, loadStorage } =
+export const { addCharacter, removeCharacter, loadStorage, removeFavorites } =
     likedCharacterReducer.actions;
 export const liked = (state) => state.liked.charactersId;
 export const favoriteCharacters = (state) => state.liked.favoriteCharacters;
