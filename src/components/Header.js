@@ -1,4 +1,4 @@
-import { Box, Button, Flex, IconButton, Image } from '@chakra-ui/react';
+import { Box, Button, Flex, Image } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';

@@ -24,7 +24,7 @@ export const EpisodePage = () => {
         <Box
             mr={'auto'}
             ml={'auto'}
-            w={'70%'}
+            w={'75%'}
             borderRadius={25}
             p={5}
             mt={150}
@@ -65,12 +65,12 @@ export const EpisodePage = () => {
             <Box bg={'gray.700'} borderRadius={25} p={5} pr={2} pl={2} m={2}>
                 <Heading> В эпизоде присутсвуют:</Heading>
                 <Flex
+                    justify={'space-evenly'}
                     mt={10}
-                    gap={5}
+                    gap={10}
                     wrap={'wrap'}
                     mr={'auto'}
                     ml={'auto'}
-                    justifyContent={'space-evenly'}
                 >
                     {heroes ? (
                         heroes.map((card) => (

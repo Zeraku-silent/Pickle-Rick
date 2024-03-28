@@ -8,6 +8,7 @@ import {
     Button,
     Box,
     IconButton,
+    
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -110,7 +111,19 @@ export const CharacterCard = ({ character }) => {
                     <Text>Status: {character.status}</Text>
                     <Box>
                         <Link to={id}>
-                            <Button>Подробнее...</Button>
+                            <Button
+                                _active={{
+                                    background: [
+                                        `linear-gradient(290deg, ${isAlive(character)}, ${[
+                                            isAlive(character),
+                                        ]}, ${isAlive(character)})`,
+                                    ],
+                                    shadow: `5px 2px 30px ${isAlive(character)}`,
+                                    color: 'white',
+                                }}
+                            >
+                                Подробнее...
+                            </Button>
                         </Link>
                         {like ? (
                             <IconButton
