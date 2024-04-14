@@ -6,6 +6,7 @@ import { CharacterPage } from './pages/CharacterPage/CharacterPage';
 import { Routes, Route } from 'react-router-dom';
 import { EpisodePage } from './pages/EpisodePage/EpisodePage';
 import { FavoritList } from './pages/FavoritesPage';
+import React from 'react';
 
 export const App = () => {
     return (
